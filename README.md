@@ -6,6 +6,13 @@
 
 passwd is a zero-setup package for hashing passwords and comparing passwords. This package makes it easy to use `passwd.Password` just like a normal string, but it is secure.
 
+## Features
+
+- Zero-setup, just use `passwd.Password` like a normal string, and it will be hashed automatically when storing to the database.
+- Implements sql.Scanner and driver.Valuer interfaces.
+- Hide the password when printing and Marshaling to JSON.
+- Customizable hash comparer algorithm.
+
 ## Installation
 
 ```bash
