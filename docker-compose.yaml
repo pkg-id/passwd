@@ -1,0 +1,11 @@
+services:
+  passwd_postgres_test:
+    image: postgres:latest
+    container_name: passwd_postgres_test
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: passwd_test
+      POSTGRES_PASSWORD: passwd_test
+      POSTGRES_DB: passwd_test

@@ -6,6 +6,9 @@ setup: install-pre-commit register-pre-commit install-tparse
 test:
 	$(GO) test -race -coverprofile=coverage.out -timeout 30s -json ./... | $(TPARSE) -all
 
+test-it:
+	$(GO) test -tags=with_postgres -race -coverprofile=coverage.out -timeout 30s -json ./... | $(TPARSE) -all
+
 install-tparse: # install tparse if not installed yet.
 	@if ! command -v tparse > /dev/null; then \
 		echo "Installing tparse"; \
