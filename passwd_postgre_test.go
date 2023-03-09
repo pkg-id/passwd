@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	"github.com/pkg-id/passwd"
+	"github.com/pkg-id/passwd/bcrypt"
 	"testing"
 )
 
@@ -20,6 +21,7 @@ func setupPostgres(t *testing.T) *sql.DB {
 		t.Fatalf("setup: exec: %v", err)
 	}
 
+	passwd.SetHashComparer(bcrypt.DefaultCost)
 	return db
 }
 

@@ -15,12 +15,13 @@ func TestPassword_Value(t *testing.T) {
 		t.Errorf("value: expected no error, but got an error: %v", err)
 	}
 
-	err = bcrypt.CompareHashAndPassword(value.([]byte), []byte("pass1234"))
+	bytes := []byte(value.(string))
+	err = bcrypt.CompareHashAndPassword(bytes, []byte("pass1234"))
 	if err != nil {
 		t.Errorf("compare: expected no error, but got an error: %v", err)
 	}
 
-	err = bcrypt.CompareHashAndPassword(value.([]byte), []byte("pass1235"))
+	err = bcrypt.CompareHashAndPassword(bytes, []byte("pass1235"))
 	if err == nil {
 		t.Errorf("compare: expected an error")
 	}
@@ -33,7 +34,7 @@ func TestPassword_Scan(t *testing.T) {
 		t.Errorf("value: expected no error, but got an error: %v", err)
 	}
 
-	src := string(value.([]byte))
+	src := value.(string)
 	var scanned passwd.Password
 	if err := scanned.Scan(src); err != nil {
 		t.Errorf("scan: expected no error, but got an error: %v", err)
@@ -65,7 +66,7 @@ func TestPassword_Compare(t *testing.T) {
 		t.Errorf("value: expected no error, but got an error: %v", err)
 	}
 
-	src := value.([]byte)
+	src := value.(string)
 	var scanned passwd.Password
 	if err := scanned.Scan(src); err != nil {
 		t.Errorf("scan: expected no error, but got an error: %v", err)
