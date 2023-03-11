@@ -3,12 +3,14 @@ package passwd_test
 import (
 	"encoding/json"
 	"github.com/pkg-id/passwd"
+	passwdBcrypt "github.com/pkg-id/passwd/bcrypt"
 	"golang.org/x/crypto/bcrypt"
 	"strings"
 	"testing"
 )
 
 func TestPassword_Value(t *testing.T) {
+	passwd.SetHashComparer(passwdBcrypt.DefaultCost)
 	pwd := passwd.Password("pass1234")
 	value, err := pwd.Value()
 	if err != nil {
@@ -34,7 +36,7 @@ func TestPassword_Scan(t *testing.T) {
 		t.Errorf("value: expected no error, but got an error: %v", err)
 	}
 
-	src := value.(string)
+	src := []byte(value.(string))
 	var scanned passwd.Password
 	if err := scanned.Scan(src); err != nil {
 		t.Errorf("scan: expected no error, but got an error: %v", err)

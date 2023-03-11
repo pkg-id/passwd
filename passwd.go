@@ -44,10 +44,7 @@ type Password string
 // It returns an error if the hash generation fails.
 func (p Password) Value() (driver.Value, error) {
 	hash, err := hashComparer.Hash(string(p))
-	if err != nil {
-		return nil, fmt.Errorf("passwd: Password.Value: generate hash: %w", err)
-	}
-	return driver.Value(hash), nil
+	return driver.Value(hash), err
 }
 
 // Scan implements the sql.Scanner interface. It sets the password value to an empty string if the source value is nil.
